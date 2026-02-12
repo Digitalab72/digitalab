@@ -110,6 +110,1083 @@
             border: none;
             background: transparent;
             color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: var(--dl-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .auth-form { 
+            display: none; 
+        }
+
+        .auth-form.active { 
+            display: block; 
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--dl-primary);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--dl-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dl-primary-dark);
+        }
+
+        .btn-google {
+            background: white;
+            border: 2px solid var(--border-light);
+            margin-top: 16px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-light);
+        }
+
+        .divider span { padding: 0 16px; }
+
+        /* App Layout */
+        .app-container {
+            display: none;
+            height: 100vh;
+        }
+
+        .app-container.authenticated {
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1fr;
+            grid-template-rows: var(--header-height) 1fr;
+            grid-template-areas: 
+                "sidebar header"
+                "sidebar main";
+        }
+
+        /* Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: white;
+            border-right: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-logo-mark {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--dl-primary) 0%, var(--dl-purple) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: monospace;
+            font-weight: 700;
+        }
+
+        .sidebar-logo-text {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .sidebar-logo-text span {
+            color: var(--dl-primary);
+        }
+
+        .workspace-selector {
+            margin: 12px 16px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .workspace-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--dl-secondary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .workspace-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .workspace-plan {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .sidebar-search {
+            padding: 12px 16px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 12px 10px 36px;
+            border-radius: 8px;
+            font-size: 13px;
+            background: var(--bg-tertiary);
+            border: none;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .nav-section {
+            margin-bottom: 16px;
+        }
+
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .nav-items {
+            list-style: none;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            margin: 2px 0;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--dl-primary);
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .user-menu:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dl-primary), var(--dl-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .upgrade-card {
+            margin-top: 12px;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(0,102,255,0.1), rgba(124,77,255,0.1));
+            border: 1px solid rgba(0,102,255,0.2);
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .upgrade-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dl-primary);
+            margin-bottom: 4px;
+        }
+
+        .upgrade-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Header */
+        .app-header {
+            grid-area: header;
+            background: white;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .breadcrumb-item:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .header-btn:hover {
+            background: var(--bg-tertiary);
+            color: var(--dl-primary);
+        }
+
+        .header-btn-primary {
+            padding: 0 20px;
+            width: auto;
+            background: var(--dl-primary);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            grid-area: main;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .page-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        .page-title {
+            font-size: 40px;
+            font-weight: 800;
+            border: none;
+            outline: none;
+            width: 100%;
+            color: var(--text-primary);
+            background: transparent;
+        }
+
+        .page-title::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        /* Blocks */
+        .blocks-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .block {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+        }
+
+        .block-handle {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+            opacity: 0;
+            cursor: grab;
+        }
+
+        .block:hover .block-handle {
+            opacity: 1;
+        }
+
+        .block-content-wrapper {
+            flex: 1;
+        }
+
+        .block-content {
+            outline: none;
+            padding: 6px;
+            margin: -6px;
+            border-radius: 4px;
+            line-height: 1.6;
+        }
+
+        .block-content:hover {
+            background: rgba(0, 102, 255, 0.05);
+        }
+
+        .block-heading-1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-top: 24px;
+        }
+
+        .block-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 5000;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .template-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .template-card {
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .template-card:hover {
+            border-color: var(--dl-primary);
+            transform: translateY(-2px);
+        }
+
+        .template-preview {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+        }
+
+        .template-info {
+            padding: 16px;
+        }
+
+        .template-name {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .template-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 6000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .toast {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            border-left: 4px solid var(--dl-primary);
+        }
+
+        .toast.success { border-left-color: var(--dl-secondary); }
+        .toast.error { border-left-color: #ef4444; }
+
+        @media (max-width: 768px) {
+            .app-container.authenticated {
+                grid-template-columns: 1fr;
+                grid-template-areas: 
+                    "header"
+                    "main";
+            }
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                z-index: 100;
+                width: 280px;
+                height: 100vh;
+                transition: left 0.3s;
+            }
+            .sidebar.open { left: 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Auth Screen -->
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <div class="logo-mark">DL</div>
+                <h1>Digita<span>Lab</span></h1>
+                <p>Enterprise Workspace OS for Modern Teams</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</button>
+                <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Get Started</button>
+            </div>
+
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Work Email</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="you@company.com" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In <i class="fas fa-arrow-right"></i></button>
+            </form>
+
+            <!-- Register Form -->
+            <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="registerName" placeholder="John Smith" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Work Email</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="registerEmail" placeholder="you@company.com" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="registerPassword" placeholder="Min 8 characters" required minlength="8">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Free Account <i class="fas fa-rocket"></i></button>
+            </form>
+
+            <div class="divider"><span>or</span></div>
+            <button class="btn btn-google" onclick="googleSignIn()"><i class="fab fa-google"></i> Continue with Google</button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container" id="appContainer">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="sidebar-logo-mark">DL</div>
+                    <div class="sidebar-logo-text">Digita<span>Lab</span></div>
+                </div>
+            </div>
+
+            <div class="workspace-selector" onclick="alert('Workspace switcher')">
+                <div class="workspace-icon"><i class="fas fa-building"></i></div>
+                <div>
+                    <div class="workspace-name">My Workspace</div>
+                    <div class="workspace-plan">Free Plan</div>
+                </div>
+            </div>
+
+            <div class="sidebar-search">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search DigitaLab...">
+                </div>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="nav-section">
+                    <div class="nav-header">
+                        <span>Pages</span>
+                        <i class="fas fa-plus" onclick="createPage()" style="cursor: pointer;"></i>
+                    </div>
+                    <ul class="nav-items" id="pageList"></ul>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-menu" onclick="alert('Settings')">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div>
+                        <div class="user-name" id="userName">User</div>
+                        <div class="user-email" id="userEmail">user@digitalab.com</div>
+                    </div>
+                </div>
+                <div class="upgrade-card" onclick="showTemplates()">
+                    <div class="upgrade-title"><i class="fas fa-crown"></i> Unlock Pro Features</div>
+                    <div class="upgrade-desc">Get all templates & unlimited pages</div>
+                </div>
+            </div>
+        </aside>
+
+        <header class="app-header">
+            <div class="breadcrumb">
+                <div class="breadcrumb-item" onclick="toggleSidebar()"><i class="fas fa-bars"></i></div>
+                <span>/</span>
+                <div class="breadcrumb-item" id="pageName"><i class="fas fa-home"></i> Home</div>
+            </div>
+            <div class="header-actions">
+                <button class="header-btn" onclick="showTemplates()" title="Templates"><i class="fas fa-th-large"></i></button>
+                <button class="header-btn" onclick="sharePage()" title="Share"><i class="fas fa-share"></i></button>
+                <button class="header-btn header-btn-primary" onclick="publishPage()"><i class="fas fa-globe"></i> Publish</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="page-container">
+                <div class="page-header">
+                    <div class="page-icon" onclick="changeIcon()">📝</div>
+                    <input type="text" class="page-title" id="pageTitle" placeholder="Untitled" value="Getting Started">
+                </div>
+                <div class="blocks-container" id="blocks"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Templates Modal -->
+    <div class="modal-overlay" id="templateModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title"><i class="fas fa-th-large" style="color: var(--dl-primary);"></i> Choose a Template</div>
+                <button class="modal-close" onclick="closeModal('templateModal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="template-grid" id="templateGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toasts"></div>
+
+    <script>
+        // Data
+        let currentUser = null;
+        let pages = [
+            { id: '1', title: 'Getting Started', icon: '🚀', content: 'Welcome to DigitaLab!' },
+            { id: '2', title: 'Notes', icon: '📝', content: '' }
+        ];
+        let currentPage = pages[0];
+
+        const templates = [
+            { id: 'starter', name: 'Getting Started', icon: '🚀', desc: 'Quick start guide', color: 'linear-gradient(135deg, #0066FF, #7C4DFF)' },
+            { id: 'notes', name: 'Simple Notes', icon: '📝', desc: 'Clean writing space', color: 'linear-gradient(135deg, #00C853, #00BFA5)' },
+            { id: 'tasks', name: 'Task Manager', icon: '✅', desc: 'Track your to-dos', color: 'linear-gradient(135deg, #FF6B00, #FF9100)' },
+            { id: 'pro1', name: 'CRM Pipeline', icon: '🤝', desc: 'Pro template', color: 'linear-gradient(135deg, #7C4DFF, #B388FF)', locked: true },
+            { id: 'pro2', name: 'Content Calendar', icon: '📅', desc: 'Pro template', color: 'linear-gradient(135deg, #E91E63, #F48FB1)', locked: true }
+        ];
+
+        // Tab Switching - FIXED
+        function switchTab(tab) {
+            console.log('Switching to:', tab); // Debug
+            
+            // Update tab buttons
+            document.getElementById('tabLogin').classList.remove('active');
+            document.getElementById('tabRegister').classList.remove('active');
+            
+            // Hide all forms
+            document.getElementById('loginForm').classList.remove('active');
+            document.getElementById('registerForm').classList.remove('active');
+            
+            // Show selected
+            if (tab === 'login') {
+                document.getElementById('tabLogin').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.getElementById('tabRegister').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        // Auth Functions
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            currentUser = { name: email.split('@')[0], email: email };
+            showApp();
+            toast('Welcome back to DigitaLab!', 'success');
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            currentUser = { name: name, email: email };
+            showApp();
+            toast('Welcome to DigitaLab!', 'success');
+            setTimeout(showTemplates, 500);
+        }
+
+        function googleSignIn() {
+            toast('Google sign-in coming soon', 'error');
+        }
+
+        function showApp() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('appContainer').classList.add('authenticated');
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userEmail').textContent = currentUser.email;
+            document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            renderPages();
+            loadPage(pages[0].id);
+        }
+
+        // Page Functions
+        function renderPages() {
+            const list = document.getElementById('pageList');
+            list.innerHTML = pages.map(p => `
+                <li class="nav-link ${currentPage && currentPage.id === p.id ? 'active' : ''}" onclick="loadPage('${p.id}')">
+                    <span>${p.icon}</span>
+                    <span>${p.title}</span>
+                </li>
+            `).join('');
+        }
+
+        function loadPage(id) {
+            currentPage = pages.find(p => p.id === id);
+            if (!currentPage) return;
+            
+            document.getElementById('pageTitle').value = currentPage.title;
+            document.getElementById('pageName').innerHTML = `<i class="fas fa-file"></i> ${currentPage.title}`;
+            document.querySelector('.page-icon').textContent = currentPage.icon;
+            
+            // Render content blocks
+            const blocksDiv = document.getElementById('blocks');
+            blocksDiv.innerHTML = `
+                <div class="block">
+                    <div class="block-handle">⋮⋮</div>
+                    <div class="block-content-wrapper">
+                        <h1 class="block-content block-heading-1" contenteditable="true">${currentPage.title}</h1>
+                    </div>
+                </div>
+                <div class="block">
+                    <div class="block-handle">⋮⋮</div>
+                    <div class="block-content-wrapper">
+                        <p class="block-content block-text" contenteditable="true">Start typing here, or press / for commands...</p>
+                    </div>
+                </div>
+            `;
+            
+            renderPages();
+        }
+
+        function createPage() {
+            const newPage = {
+                id: Date.now().toString(),
+                title: 'New Page',
+                icon: '📄',
+                content: ''
+            };
+            pages.push(newPage);
+            renderPages();
+            loadPage(newPage.id);
+            toast('New page created', 'success');
+        }
+
+        // Template Functions
+        function showTemplates() {
+            const grid = document.getElementById('templateGrid');
+            grid.innerHTML = templates.map(t => `
+                <div class="template-card" onclick="applyTemplate('${t.id}')">
+                    <div class="template-preview" style="background: ${t.color}">
+                        ${t.locked ? '<div style="position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: white; padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;">PRO</div>' : ''}
+                        <span style="font-size: 48px;">${t.icon}</span>
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name">${t.name}</div>
+                        <div class="template-desc">${t.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('templateModal').classList.add('visible');
+        }
+
+        function applyTemplate(id) {
+            const t = templates.find(x => x.id === id);
+            if (t.locked) {
+                toast('Upgrade to Pro to unlock this template', 'error');
+                return;
+            }
+            const newPage = {
+                id: Date.now().toString(),
+                title: t.name,
+                icon: t.icon,
+                content: ''
+            };
+            pages.push(newPage);
+            renderPages();
+            loadPage(newPage.id);
+            closeModal('templateModal');
+            toast(`Applied ${t.name} template`, 'success');
+        }
+
+        // UI Functions
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('visible');
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function changeIcon() {
+            const icons = ['📝', '🚀', '✅', '📊', '💡', '🎯', '📅', '💰'];
+            const current = document.querySelector('.page-icon').textContent;
+            const idx = icons.indexOf(current);
+            const next = icons[(idx + 1) % icons.length];
+            document.querySelector('.page-icon').textContent = next;
+            if (currentPage) {
+                currentPage.icon = next;
+                renderPages();
+            }
+        }
+
+        function sharePage() {
+            toast('Share feature coming soon', 'error');
+        }
+
+        function publishPage() {
+            toast('Page published! (Demo)', 'success');
+        }
+
+        function toast(message, type) {
+            const container = document.getElementById('toasts');
+            const toastEl = document.createElement('div');
+            toastEl.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 'exclamation-circle';
+            
+            toastEl.innerHTML = `
+                <i class="fas fa-${icon}" style="font-size: 20px; color: ${type === 'success' ? 'var(--dl-secondary)' : '#ef4444'};"></i>
+                <div>
+                    <div style="font-weight: 600; margin-bottom: 2px;">${type === 'success' ? 'Success' : 'Notice'}</div>
+                    <div style="font-size: 13px; color: var(--text-secondary);">${message}</div>
+                </div>
+            `;
+            
+            container.appendChild(toastEl);
+            setTimeout(() => toastEl.remove(), 3000);
+        }
+
+        // Close modals on outside click
+        document.getElementById('templateModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal('templateModal');
+            }
+        });
+
+        // Debug: Log that script loaded
+        console.log('DigitaLab script loaded');
+    </script>
+</body>
+</html>
+        }
+
+        /* Auth Screen */
+        .auth-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-mark {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--dl-primary) 0%, var(--dl-purple) 100%);
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: monospace;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .auth-logo h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .auth-logo h1 span {
+            color: var(--dl-primary);
+        }
+
+        .auth-logo p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            background: var(--bg-tertiary);
+            padding: 4px;
+            border-radius: 8px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
         }
 
         .auth-tab.active {

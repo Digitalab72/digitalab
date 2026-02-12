@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GuitarLab – Personal Guitar Learning App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+    --bg: #0e0e11;
+    --panel: #1a1a20;
+    --accent: #e63946;
+    --text: #f1f1f1;
+    --muted: #9aa0a6;
+    --radius: 14px;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+}
+
+header {
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #111, #1b1b24);
+    border-bottom: 1px solid #2a2a35;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 0.5px;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    height: calc(100vh - 64px);
+}
+
+aside {
+    background: var(--panel);
+    padding: 16px;
+    overflow-y: auto;
+    border-right: 1px solid #2a2a35;
+}
+
+aside h2 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.song {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #22222b;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.song:hover {
+    background: #2b2b36;
+}
+
+.song strong {
+    display: block;
+}
+
+.song span {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+section {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.panel {
+    background: var(--panel);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.panel h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button {
+    background: var(--accent);
+    border: none;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button.secondary {
+    background: #2a2a35;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+pre {
+    background: #111;
+    padding: 14px;
+    border-radius: 10px;
+    overflow-x: auto;
+    font-size: 14px;
+}
+
+#tunerNote {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+#tunerStatus {
+    color: var(--muted);
+}
+
+.metronome {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input[type="range"] {
+    width: 150px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>GuitarLab — Personal Guitar Learning Workspace</h1>
+</header>
+
+<main>
+
+<aside>
+    <h2>Song Library</h2>
+    <div id="songList"></div>
+</aside>
+
+<section>
+
+<div class="panel">
+    <h3>Song of the Day</h3>
+    <strong id="songTitle">—</strong>
+    <span id="songGenre"></span>
+</div>
+
+<div class="panel">
+    <h3>Lesson Viewer</h3>
+    <div class="controls">
+        <button onclick="toggleView()">Toggle Tabs / Notes</button>
+        <button class="secondary" onclick="playSong()">Play</button>
+        <button class="secondary" onclick="pauseSong()">Pause</button>
+    </div>
+    <pre id="lessonDisplay"></pre>
+    <audio id="audioPlayer"></audio>
+</div>
+
+<div class="panel">
+    <h3>Guitar Tuner</h3>
+    <button onclick="startTuner()">Start Tuner</button>
+    <div id="tunerNote">—</div>
+    <div id="tunerStatus">Microphone inactive</div>
+</div>
+
+<div class="panel">
+    <h3>Metronome</h3>
+    <div class="metronome">
+        <button onclick="toggleMetronome()">Start / Stop</button>
+        <input type="range" min="40" max="200" value="90" id="bpm">
+        <span id="bpmLabel">90 BPM</span>
+    </div>
+</div>
+
+</section>
+
+</main>
+
+<script>
+/* ------------------ SONG DATA (PLACEHOLDER) ------------------ */
+const songs = [
+    {
+        title: "Blues in A",
+        genre: "Blues",
+        tabs: `e|----------------|
+B|----------------|
+G|-----2--4--2----|
+D|--2-------------|
+A|----------------|
+E|----------------|`,
+        notes: "A minor pentatonic over 12-bar progression",
+        audio: ""
+    },
+    {
+        title: "Country Strummer",
+        genre: "Country",
+        tabs: "G - C - D (boom-chick strum)",
+        notes: "G major chord progression",
+        audio: ""
+    },
+    {
+        title: "Metal Riff X",
+        genre: "Heavy Metal",
+        tabs: "E|0-0-3-0-5-0-6-5|",
+        notes: "Palm-muted E minor riff",
+        audio: ""
+    }
+];
+
+/* ------------------ STATE ------------------ */
+let currentSong = songs[new Date().getDate() % songs.length];
+let showTabs = true;
+
+/* ------------------ INIT ------------------ */
+const songList = document.getElementById("songList");
+songs.forEach(song => {
+    const div = document.createElement("div");
+    div.className = "song";
+    div.innerHTML = `<strong>${song.title}</strong><span>${song.genre}</span>`;
+    div.onclick = () => loadSong(song);
+    songList.appendChild(div);
+});
+
+loadSong(currentSong);
+
+/* ------------------ FUNCTIONS ------------------ */
+function loadSong(song) {
+    currentSong = song;
+    document.getElementById("songTitle").textContent = song.title;
+    document.getElementById("songGenre").textContent = song.genre;
+    document.getElementById("lessonDisplay").textContent = showTabs ? song.tabs : song.notes;
+    document.getElementById("audioPlayer").src = song.audio;
+}
+
+function toggleView() {
+    showTabs = !showTabs;
+    document.getElementById("lessonDisplay").textContent = showTabs ? currentSong.tabs : currentSong.notes;
+}
+
+function playSong() {
+    document.getElementById("audioPlayer").play();
+}
+
+function pauseSong() {
+    document.getElementById("audioPlayer").pause();
+}
+
+/* ------------------ METRONOME ------------------ */
+let metroInterval = null;
+const bpmInput = document.getElementById("bpm");
+const bpmLabel = document.getElementById("bpmLabel");
+
+bpmInput.oninput = () => bpmLabel.textContent = bpmInput.value + " BPM";
+
+function toggleMetronome() {
+    if (metroInterval) {
+        clearInterval(metroInterval);
+        metroInterval = null;
+        return;
+    }
+    const interval = 60000 / bpmInput.value;
+    metroInterval = setInterval(() => {
+        const click = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQQAAAA=");
+        click.play();
+    }, interval);
+}
+
+/* ------------------ TUNER ------------------ */
+async function startTuner() {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const ctx = new AudioContext();
+    const source = ctx.createMediaStreamSource(stream);
+    const analyser = ctx.createAnalyser();
+    source.connect(analyser);
+    analyser.fftSize = 2048;
+    const buffer = new Float32Array(analyser.fftSize);
+
+    function detect() {
+        analyser.getFloatTimeDomainData(buffer);
+        const freq = autoCorrelate(buffer, ctx.sampleRate);
+        if (freq !== -1) {
+            document.getElementById("tunerNote").textContent = freq.toFixed(1) + " Hz";
+            document.getElementById("tunerStatus").textContent = "Signal detected";
+        }
+        requestAnimationFrame(detect);
+    }
+    detect();
+}
+
+function autoCorrelate(buf, sampleRate) {
+    let SIZE = buf.length;
+    let rms = 0;
+    for (let i = 0; i < SIZE; i++) rms += buf[i] * buf[i];
+    rms = Math.sqrt(rms / SIZE);
+    if (rms < 0.01) return -1;
+
+    let bestOffset = -1;
+    let bestCorrelation = 0;
+    for (let offset = 20; offset < 1000; offset++) {
+        let corr = 0;
+        for (let i = 0; i < SIZE - offset; i++) {
+            corr += buf[i] * buf[i + offset];
+        }
+        if (corr > bestCorrelation) {
+            bestCorrelation = corr;
+            bestOffset = offset;
+        }
+    }
+    return bestOffset > 0 ? sampleRate / bestOffset : -1;
+}
+</script>
+
+</body>
+</html>
